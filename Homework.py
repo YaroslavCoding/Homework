@@ -1,9 +1,9 @@
-def rounding():
+def rounding(): #округление
     x = float(input('Введите число:'))
     y = int(input('до скольки знаков округлить число:'))
     print(round(x, y))
 
-def average():
+def average(): #округление и среднее арифметическое
     x = float(input('введите число:'))
     y = float(input('введите число:'))
     print(round((x + y)/2))
