@@ -14,15 +14,20 @@ if x == '1':
         x = create_list(x)
         y = input('Введите через пробел последовательность чисел: ') #здесь создается вводимый пользователем числовой список
         y = create_list(y)
-        if len(x) == len(y):
-            break
-        else:
-            print('Размер массивов неодинаков - требуется одинаковое кол-во элементов в каждом')
 
     lamba_function = lambda x, y: x + y
     sum = map(lamba_function, x, y)
 
-    print(list(sum))
+     if len(x) > len(y):
+        sum = list(sum)
+        sum.extend(x[len(y):])
+        print(sum)
+    elif len(y) > len(x):
+        sum = list(sum)
+        sum.extend(y[len(x):])
+        print(sum)
+    else:
+        print(list(sum))
 
 if x == '2':
     x = input('Введите через пробел последовательность чисел: ')  # здесь создается вводимый пользователем числовой список
