@@ -74,12 +74,13 @@ def main():
         elif player_symbol == "O":     #аналогичная ситуация, но компьютер ходит первым
             computer_symbol = "X"
             while True:
-                draw_board(board)
                 get_computer_move(board, computer_symbol)
                 if check_win(board, computer_symbol):
                     print('******************************')
                     print('Победил компьютер!')
                     break
+                draw_board(board)
+                print('******************************')
                 if " " not in board:
                     print('******************************')
                     print('Похоже, ничья!')
@@ -89,6 +90,8 @@ def main():
                     print('******************************')
                     print('Вы победили!')
                     break
+                draw_board(board)
+                print('******************************')
                 if " " not in board:
                     print('******************************')
                     print('Похоже, ничья!')
