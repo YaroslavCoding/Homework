@@ -1,45 +1,37 @@
+import scipy
+
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+from sklearn.preprocessing import StandardScaler
+
 import numpy as np
+import matplotlib.pyplot as plt
 
-#1
+np.random.seed(42)
+x = 2 * np.random.rand(100, 1)
+y = 4 + 3 * x + np.random.randn(100, 1)
 
-A = np.matrix([[1, 54], [1, 6], [2, 7]])
-A = np.transpose(A)
-print(f'Транспанированная матрица A - \n {A}')
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=30)
+scaler = StandardScaler()
+x_train = scaler.fit_transform(x_train)
+x_test = scaler.fit_transform(x_test)
+model = LinearRegression()
+model.fit(x_train, y_train)
 
-B = np.matrix([[1, 7, 8], [4, 2, 9], [5, 6, 3]])
-B = np.transpose(B)
-print(f'Транспонированная матрица B - \n {B}')
+y_pred = model.predict(x_test)
+mse = mean_squared_error(y_test, y_pred)
 
-#2
-print('************************************************************')
-#a.
-print('a.')
+print(f'MSE - {mse}')
 
-A = np.matrix([[1, 2], [4, 5], [7, 8]])
-B = np.matrix([[1, 1, 0], [0, 1, 1], [1, 0, 1]])
+plt.figure(figsize=(10, 5))
+plt.scatter(x_train, y_train, color='green', label='Набор обучения')
+plt.scatter(x_test, y_test, color='red', label='Набор тестирования')
 
-try:
-    r = np.dot(A, B)
-    print(r)
-except:
-    print('Эти матрицы не перемножаются из-за несоответствия условиям матричного умножения.')
-
-
-#b.
-print('b.')
-
-A = np.matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-B = np.matrix([[1, 1, 0], [0, 1, 1], [1, 0, 1]])
-r = np.dot(A, B)
-print(f'Результат умножения матриц - \n {r}')
-
-
-#3
-print('************************************************************')
-
-X = np.matrix([[1, 145], [2, 163], [3, 240], [3, 350], [4, 421], [4, 397], [5, 620]])
-Y = np.array([[80], [170], [100], [220], [200], [270], [500]])
-exp1 = X.T * X
-exp2 = X.T * Y
-r = exp2 / exp1
-print(f'Вектор оптимальных весов - \n {r}')
+plt.plot(x_test, y_pred, color='red', label='Линейная регрессия')
+plt.xlabel('Признак')
+plt.ylabel('Целевое значение')
+plt.title('Линейная регрессия с обучающими и тестовыми наборами')
+plt.legend()
+plt.grid(True)
+plt.show()
